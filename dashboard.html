@@ -809,11 +809,11 @@
     <div class="method-grid">
       <div>
         <h3>Оцінка підтримки</h3>
-        <p>Основне джерело — Back Both Now. Track Ukraine доповнює й перевіряє його. Розбіжні оцінки позначено як неоднозначні. За відсутності актуальнішої оцінки використовуємо найсвіжіший придатний давніший доказ або джерело без підтвердженої дати. У картці кандидата позначено, коли застосовано такий доказ. <a href="https://backbothnow.org/#how">Back Both Now</a>, <a href="https://trackukraine.com/pages/about">Track Ukraine</a>.</p>
+        <p>Основне джерело — Back Both Now, версія 16d від 30 жовтня 2026 року. Картки Track Ukraine, поіменні голосування, анкети й прямі заяви допомогли звірити оцінки та заповнити пропуски. Розбіжні оцінки позначено як неоднозначні. За відсутності актуальнішої оцінки використовуємо найсвіжіший придатний давніший доказ або джерело без підтвердженої дати. Посилання на докази є в деталях перегонів. <a href="https://backbothnow.org/#how">Back Both Now</a> · <a href="https://bsky.app/profile/trackukraine.bsky.social">Картки Track Ukraine</a> · <a href="https://www.election2026.info/candidates">Анкети Ukrainian Owned</a></p>
       </div>
       <div>
         <h3>Результати й межі</h3>
-        <p>Лідер за голосами й оголошений переможець мають окремі статуси. У змінених округах номінальний баланс використовує номер округу, а підтверджені переходи вимагають перевірки меж. <a href="https://apps.npr.org/2026-election-results/">AP через NPR</a>, <a href="https://www.census.gov/programs-surveys/decennial-census/about/rdo/congressional-districts.html">Census Bureau</a>.</p>
+        <p>Підрахунок голосів та оголошених переможців спирається на потік AP, який публікує NPR. Попередників визначено за реєстрами Конгресу. У змінених округах номінальний баланс використовує номер округу, а підтверджені переходи вимагають перевірки меж. <a href="https://apps.npr.org/2026-election-results/data/house.json">Палата (JSON)</a> · <a href="https://apps.npr.org/2026-election-results/data/senate.json">Сенат (JSON)</a> · <a href="https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Legislative/MapServer">Карти Census TIGERweb</a></p>
       </div>
       <div>
         <h3>Охоплення Сенату</h3>
@@ -822,7 +822,7 @@
     </div>
     <nav class="data-links" aria-label="Файли дослідження">
       <a href="index.html">Головна сторінка</a><a href="index.html#method">Методика</a>
-      <a href="index.html#sources">Джерела</a>
+      <a href="index.html#sources">Усі джерела даних</a>
     </nav>
   </section>
 </main>
@@ -881,7 +881,7 @@
   $('hero-delta').textContent = signed(pairedAfter - pairedBefore);
   $('hero-before').textContent = pairedBefore;
   $('hero-after').textContent = pairedAfter;
-  $('all-results-title').textContent = 'Усі ' + decided + ' місць з оголошеним результатом';
+  $('all-results-title').textContent = 'Усі місця з оголошеним результатом (' + decided + ')';
   $('all-results-balance').textContent = sum('nominal', 'before') + ' → ' + sum('nominal', 'after') +
     ' (' + signed(sum('nominal', 'delta')) + ')';
   const missingPairs = decided - paired.length;

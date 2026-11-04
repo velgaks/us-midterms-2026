@@ -65,12 +65,16 @@
     .gallery a { display: block }
     .gallery img { display: block; width: 100%; height: auto }
     .gallery figcaption { padding: .75rem 1rem; border-top: 1px solid var(--line); font-weight: 650 }
-    .notes { display: grid; grid-template-columns: 1.7fr 1fr; gap: 1.5rem; margin-top: 2.4rem; padding-top: 1.4rem; border-top: 1px solid var(--line) }
+    .notes { display: grid; gap: 1.5rem; margin-top: 2.4rem; padding-top: 1.4rem; border-top: 1px solid var(--line) }
     .notes h2 { margin-bottom: .5rem; font-size: 1.55rem }
-    .notes p, .notes ul { color: var(--muted); font-size: .93rem }
-    .notes ul { margin: 0; padding-inline-start: 1.1em }
+    .notes p { color: var(--muted); font-size: .93rem }
+    .notes p + p { margin-top: .65rem }
+    .source-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; margin-top: .8rem }
+    .source-grid section { min-width: 0; border-top: 2px solid var(--line); padding-top: .65rem }
+    .source-grid h3 { margin: 0 0 .4rem; font-size: 1rem }
+    .source-details { margin-top: 1rem }
     @media (max-width: 570px) {
-      .gallery, .notes { grid-template-columns: 1fr }
+      .gallery, .source-grid { grid-template-columns: 1fr }
       .coverage-metrics { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .45rem }
     }
   </style>
@@ -85,7 +89,7 @@
     <header class="intro">
       <p class="eyebrow">Проміжні вибори США 2026</p>
       <h1>Підтримка України в Конгресі</h1>
-      <p class="asof">Голоси станом на <time datetime="2026-11-04T18:15:11+02:00">4 листопада 2026 року, 18:15:11 за Києвом</time>.</p>
+      <p class="asof">Голоси станом на <time datetime="2026-11-04T18:15:11+02:00">4 листопада 2026 року, 18:15:11 за Києвом</time>. <a href="#sources">Джерела даних</a></p>
       <div class="lead-result">
         <p><strong>+4</strong> задокументованих прихильники України</p>
         <p class="scope"><b>228 → 232</b> на 370 місцях, де відомі позиції і попередника, і переможця.</p>
@@ -140,15 +144,31 @@
       <section id="method" aria-labelledby="method-title">
         <h2 id="method-title">Методика</h2>
         <p>Порівняно позиції попередників та оголошених переможців на тих самих місцях. Для всіх 393 місць переходи між підтримкою та протидією дали −1 до балансу. Ще −1 дали переходи за участю невідомих або неоднозначних позицій.</p>
-        <p class="asof">Позиції взято з Back Both Now, Track Ukraine та перевірених додаткових джерел. Зріз позицій зафіксовано <time datetime="2026-11-04T12:59:38+02:00">4 листопада о 12:59:38 за Києвом</time>. У дашборді біля імен доступні оцінки й посилання на докази.</p>
+        <p>Оцінки позицій зафіксовано окремим зрізом <time datetime="2026-11-04T12:59:38+02:00">4 листопада 2026 року о 12:59:38 за Києвом</time>.</p>
       </section>
       <section id="sources" aria-labelledby="sources-title">
-        <h2 id="sources-title">Джерела</h2>
-        <ul>
-          <li><a href="https://apps.npr.org/2026-election-results/">Associated Press через NPR</a></li>
-          <li><a href="https://backbothnow.org/#how">Back Both Now</a></li>
-          <li><a href="https://trackukraine.com/pages/about">Track Ukraine</a></li>
-        </ul>
+        <h2 id="sources-title">Звідки взято дані</h2>
+        <div class="source-grid">
+          <section aria-labelledby="source-results">
+            <h3 id="source-results">Голоси й переможці</h3>
+            <p>Голоси та статуси перегонів до Палати й Сенату взято з потоку Associated Press, який публікує NPR. Переможця фіксуємо після оголошення AP. <a href="https://apps.npr.org/2026-election-results/data/house.json">Палата (JSON)</a> · <a href="https://apps.npr.org/2026-election-results/data/senate.json">Сенат (JSON)</a></p>
+            <p>Додаткові імена кандидатів звірено за потоком AP через Al Jazeera та списком номінантів Клерка Палати. <a href="https://interactive.aljazeera.com/data/mapped/uselection2026/House_Races.json">Палата в Al Jazeera</a> · <a href="https://interactive.aljazeera.com/data/mapped/uselection2026/Senate_Races.json">Сенат в Al Jazeera</a> · <a href="https://clerk.house.gov/member_info/electionInfo/2026/120-nominations.pdf">Список номінантів (PDF)</a></p>
+            <p>Другий тур в окрузі Луїзіана‑6 звірено з підрахунком штату й повідомленням WAFB. <a href="https://voterportal.sos.la.gov/graphical">Виборчі дані Луїзіани</a> · <a href="https://www.wafb.com/2026/11/04/chauna-banks-blake-miguez-advance-runoff-louisianas-6th-congressional-district/">Повідомлення WAFB</a></p>
+          </section>
+          <section aria-labelledby="source-roster">
+            <h3 id="source-roster">Попередники й межі округів</h3>
+            <p>Попередників у Палаті визначено за реєстром Клерка й повідомленнями про вакансії. Сенатський список Congress Legislators звірено з реєстрами Сенату. <a href="https://clerk.house.gov/xml/lists/MemberData.xml">Реєстр Палати</a> · <a href="https://clerk.house.gov/Members/ViewVacancies">Вакансії</a> · <a href="https://unitedstates.github.io/congress-legislators/legislators-current.json">Congress Legislators</a> · <a href="https://www.senate.gov/senators/Class_II.htm">Сенатори класу II</a> · <a href="https://www.dailypress.senate.gov/on-the-floor/senate-facts/">Довідка Сенату</a></p>
+            <p>Межі округів 119-го і 120-го скликань порівняно за картами Бюро перепису США. <a href="https://tigerweb.geo.census.gov/arcgis/rest/services/TIGERweb/Legislative/MapServer">Карти Census TIGERweb</a></p>
+          </section>
+          <section aria-labelledby="source-positions">
+            <h3 id="source-positions">Позиції щодо України</h3>
+            <p>Основне джерело — оцінки щодо України з Back Both Now, версія 16d від 30 жовтня 2026 року. Track Ukraine використано для звірки й доповнення за явними оцінками з карток і дописів. Розбіжні оцінки позначено як неоднозначні. <a href="https://backbothnow.org/#how">Методика Back Both Now</a> · <a href="https://bsky.app/profile/trackukraine.bsky.social">Track Ukraine у Bluesky</a> · <a href="https://x.com/TrackUkraine">Track Ukraine у X</a></p>
+            <p>Пропуски доповнено поіменними голосуваннями та законодавчими матеріалами. Палата представників — <a href="https://clerk.house.gov/Votes/2025209">№209</a> і <a href="https://clerk.house.gov/Votes/2025255">№255</a> за 2025 рік, <a href="https://clerk.house.gov/Votes/2026207">№207</a> і <a href="https://clerk.house.gov/Votes/2026264">№264</a> за 2026 рік. Сенат — <a href="https://www.senate.gov/legislative/LIS/roll_call_votes/vote1191/vote_119_1_00178.htm">голосування №178 за 2025 рік</a>, <a href="https://www.govinfo.gov/app/collection/crec">Congressional Record</a> і <a href="https://www.govinfo.gov/app/details/BILLS-119s5175is">законопроєкт S.5175</a>.</p>
+            <p>Також використано прямі відповіді й заяви кандидатів. <a href="https://www.election2026.info/candidates">Анкети Ukrainian Owned</a> · <a href="https://www.danielbiss.com/issues/a-foreign-policy-rooted-in-peace-democracy-and-global-justice">Приклад передвиборчої програми</a></p>
+            <p>America’s Political Pulse допоміг знайти дописи. Для оцінки перевіряли зміст оригінального допису. <a href="https://americaspoliticalpulse.com/data#congress">Відкриті дані America’s Political Pulse</a></p>
+          </section>
+        </div>
+        <p class="source-details">Посилання на джерела конкретної оцінки й результату є в деталях кожних перегонів. <a href="dashboard.html#races">Відкрити перегони в дашборді</a></p>
       </section>
     </div>
   </main>
