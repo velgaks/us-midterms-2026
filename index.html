@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <meta name="description" content="Інтерактивний дашборд про підтримку України після проміжних виборів до Конгресу США 2026 року.">
+  <title>Конгрес США 2026 · Підтримка України</title>
+  <style>
+    :root {
+      --paper: #f8f7f2;
+      --panel: #fffefa;
+      --ink: #101a2c;
+      --muted: #575e69;
+      --line: #d9dce0;
+      --blue: #2a78d6;
+      --deep-blue: #19549b;
+      --navy: #0d2444;
+      --gold: #ffe281;
+      --serif: Georgia, 'Times New Roman', serif;
+      --sans: system-ui, -apple-system, 'Segoe UI', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box }
+    body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.55 var(--sans) }
+    h1, h2, p, figure { margin: 0 }
+    a { color: var(--deep-blue); text-underline-offset: .2em }
+    a:focus-visible { outline: 3px solid var(--blue); outline-offset: 4px }
+    .wrap { width: min(100% - 36px, 1040px); margin: 0 auto; padding: clamp(18px, 5vw, 56px) 0 44px }
+    .cta {
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+      padding: clamp(18px, 4vw, 36px); border-top: 5px solid var(--gold);
+      background: var(--navy); color: var(--panel); text-decoration: none;
+      font: 500 clamp(1.55rem, 4vw, 2.65rem)/1.12 var(--serif);
+    }
+    .cta:hover .cta-label { text-decoration: underline; text-underline-offset: .2em }
+    .cta-arrow { color: var(--gold); flex: none }
+    .intro { margin: clamp(2rem, 5vw, 3.7rem) 0 clamp(2rem, 5vw, 3rem); max-width: 74ch }
+    .eyebrow { color: var(--deep-blue); font-weight: 760; font-size: .76rem; letter-spacing: .1em; text-transform: uppercase }
+    h1 { margin: .35rem 0 .8rem; font: 500 clamp(2.1rem, 5.6vw, 4rem)/1.03 var(--serif); letter-spacing: -.045em; text-wrap: balance }
+    .summary { color: var(--muted); font-size: clamp(1rem, 1.8vw, 1.18rem) }
+    .summary strong { color: var(--ink) }
+    .asof { margin-top: .5rem; color: var(--muted); font-size: .9rem }
+    h2 { font: 500 clamp(1.5rem, 3vw, 2.2rem)/1.1 var(--serif); letter-spacing: -.025em }
+    .gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(1rem, 2.5vw, 1.7rem); margin-top: 1rem }
+    .gallery figure { min-width: 0; border: 1px solid var(--line); background: var(--panel) }
+    .gallery a { display: block }
+    .gallery img { display: block; width: 100%; height: auto }
+    .gallery figcaption { padding: .75rem 1rem; border-top: 1px solid var(--line); font-weight: 650 }
+    .notes { display: grid; grid-template-columns: 1.7fr 1fr; gap: 1.5rem; margin-top: 2.4rem; padding-top: 1.4rem; border-top: 1px solid var(--line) }
+    .notes h2 { margin-bottom: .5rem; font-size: 1.55rem }
+    .notes p, .notes ul { color: var(--muted); font-size: .93rem }
+    .notes ul { margin: 0; padding-inline-start: 1.1em }
+    @media (max-width: 570px) {
+      .gallery, .notes { grid-template-columns: 1fr }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <a class="cta" href="dashboard.html">
+      <span class="cta-label">Відкрити інтерактивний дашборд</span>
+      <span class="cta-arrow" aria-hidden="true">↗</span>
+    </a>
+
+    <header class="intro">
+      <p class="eyebrow">Проміжні вибори США 2026</p>
+      <h1>Підтримка України в Конгресі</h1>
+      <p class="summary">На <strong>393 із 470 місць</strong> з оголошеним результатом кількість задокументованих прихильників України зросла <strong>з 202 до 224</strong>.</p>
+      <p class="asof">Зріз зафіксовано <time datetime="2026-11-04T12:59:38+02:00">4 листопада 2026 року о 12:59:38 за Києвом</time>.</p>
+    </header>
+
+    <section aria-labelledby="gallery-title">
+      <h2 id="gallery-title">Візуальний підсумок</h2>
+      <div class="gallery">
+        <figure>
+          <a href="share/01-pidsumok.png">
+            <img src="share/01-pidsumok.png" width="1080" height="1350" alt="На місцях з оголошеним результатом кількість задокументованих прихильників України зросла з 202 до 224.">
+          </a>
+          <figcaption>Загальний підсумок</figcaption>
+        </figure>
+        <figure>
+          <a href="share/02-palaty.png">
+            <img src="share/02-palaty.png" width="1080" height="1350" alt="Приріст становить 14 задокументованих прихильників у Палаті представників і 8 у Сенаті.">
+          </a>
+          <figcaption>Баланс по палатах</figcaption>
+        </figure>
+        <figure>
+          <a href="share/03-perekhody.png">
+            <img src="share/03-perekhody.png" width="1080" height="1350" loading="lazy" alt="Два підтверджені здобутки у Кентуккі та Пенсильванії й одна втрата у Мічигані.">
+          </a>
+          <figcaption>Підтверджені переходи</figcaption>
+        </figure>
+        <figure>
+          <a href="share/04-vidkryti-perehony.png">
+            <img src="share/04-vidkryti-perehony.png" width="1080" height="1350" loading="lazy" alt="На час зрізу ще не було оголошених переможців на 77 місцях, зокрема у двох округах Луїзіани з другим туром.">
+          </a>
+          <figcaption>Відкриті перегони</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <div class="notes">
+      <section id="method" aria-labelledby="method-title">
+        <h2 id="method-title">Методика</h2>
+        <p>Порівняно оцінки попередників та оголошених переможців на тих самих місцях. Підтверджені переходи між підтримкою та протидією дали +1 до балансу. Ще +21 припадає на переходи за участю невідомих або неоднозначних оцінок.</p>
+      </section>
+      <section id="sources" aria-labelledby="sources-title">
+        <h2 id="sources-title">Джерела</h2>
+        <ul>
+          <li><a href="https://apps.npr.org/2026-election-results/">Associated Press через NPR</a></li>
+          <li><a href="https://backbothnow.org/#how">Back Both Now</a></li>
+          <li><a href="https://trackukraine.com/pages/about">Track Ukraine</a></li>
+        </ul>
+      </section>
+    </div>
+  </main>
+</body>
+</html>
