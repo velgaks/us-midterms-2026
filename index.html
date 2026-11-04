@@ -46,6 +46,8 @@
       font: 500 clamp(2.25rem, 6vw, 3.65rem)/1 var(--serif); letter-spacing: -.04em }
     .lead-result .scope { margin-top: .4rem; font-size: .92rem }
     .all-results { padding: .8rem 1rem; background: var(--panel); border: 1px solid var(--line) }
+    .all-results p + p { margin-top: .45rem }
+    .balance-note { color: var(--muted); font-size: .94rem }
     .coverage-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .6rem; margin: .9rem 0 }
     .coverage-metrics div { min-width: 0; padding: .62rem .75rem; background: var(--panel);
       border: 1px solid var(--line); border-top: 3px solid var(--blue) }
@@ -101,11 +103,11 @@
         <div><dt>Відомі обидві позиції</dt><dd><strong>370 / 393</strong><span>94,1%</span></dd></div>
       </dl>
       <div class="all-results">
-        <p class="summary">На всіх <strong>393 місцях з оголошеним результатом</strong> кількість задокументованих прихильників України змінилася <strong>з 235 до 233 (−2)</strong>.</p>
+        <p class="summary"><strong>233 із 393 оголошених переможців</strong> мають задокументовану підтримку України. До виборів на цих самих місцях було <strong>235</strong> задокументованих прихильників. Різниця становить <strong>−2</strong>.</p>
+        <p class="balance-note">На 23 місцях поза основним порівнянням бракує даних про попередника або переможця. Там задокументовано 7 прихильників серед попередників і 1 серед переможців (−6). Разом із +4 на 370 місцях це дає −2.</p>
       </div>
       <div class="coverage" aria-label="Покриття позицій">
         <p>До відомих позицій зараховуємо підтримку, протидію та неоднозначну позицію. Серед усіх кандидатів на місця з правом голосу позицію задокументовано для <strong>746 із 1 296 (57,6%)</strong>. Серед переможців 81 має неоднозначну позицію. Щодо 22 переможців даних немає.</p>
-        <p>На решті 23 місцях з оголошеним результатом бракує даних про попередника або переможця.</p>
         <p>Ще на 77 місцях очікують на переможця, зокрема у двох округах Луїзіани з другим туром.</p>
       </div>
     </header>

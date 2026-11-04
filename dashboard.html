@@ -249,7 +249,8 @@
     </div>
     <section class="all-results" aria-labelledby="all-results-title">
       <h2 id="all-results-title"></h2>
-      <p><strong id="all-results-balance"></strong> задокументованих прихильників України</p>
+      <p><strong id="all-results-balance"></strong> до й після виборів</p>
+      <p id="all-results-winners"></p>
       <p id="all-results-gap"></p>
     </section>
   </section>
@@ -881,12 +882,19 @@
   $('hero-delta').textContent = signed(pairedAfter - pairedBefore);
   $('hero-before').textContent = pairedBefore;
   $('hero-after').textContent = pairedAfter;
+  const allBefore = sum('nominal', 'before');
+  const allAfter = sum('nominal', 'after');
   $('all-results-title').textContent = 'Усі місця з оголошеним результатом (' + decided + ')';
-  $('all-results-balance').textContent = sum('nominal', 'before') + ' → ' + sum('nominal', 'after') +
-    ' (' + signed(sum('nominal', 'delta')) + ')';
+  $('all-results-balance').textContent = allBefore + ' → ' + allAfter + ' (' + signed(allAfter - allBefore) + ')';
+  $('all-results-winners').textContent = allAfter + ' із ' + decided +
+    ' переможців мають задокументовану підтримку України.';
   const missingPairs = decided - paired.length;
+  const missingBefore = allBefore - pairedBefore;
+  const missingAfter = allAfter - pairedAfter;
   $('all-results-gap').textContent = missingPairs
-    ? 'На ' + missingPairs + ' із цих місць бракує даних про попередника або переможця.'
+    ? 'На ' + missingPairs + ' місцях, де бракує однієї з позицій, задокументовано ' +
+      missingBefore + ' прихильників серед попередників і ' + missingAfter +
+      ' серед переможців (' + signed(missingAfter - missingBefore) + ').'
     : '';
   $('hero-comparable').textContent = 'На ' + sum('verified_continuity', 'n') +
     ' місцях із підтвердженою наступністю зміна становить ' + signed(sum('verified_continuity', 'delta')) + '.';
