@@ -46,7 +46,7 @@
   .skip-link:focus { top: .4rem }
   .hero { padding: clamp(2rem, 4vw, 3.5rem) 0 2.75rem; display: grid; grid-template-columns: 1.17fr .83fr;
     align-items: start; gap: 1.4rem clamp(24px, 5vw, 72px) }
-  .hero-heading, .coverage-metrics { grid-column: 1 / -1 }
+  .coverage-metrics { grid-column: 1 / -1 }
   .eyebrow { color: var(--deep-blue); font-size: .73rem; font-weight: 800; letter-spacing: .16em; text-transform: uppercase }
   .hero h1 { font: 500 clamp(2.65rem, 5.35vw, 5rem)/.98 var(--serif); letter-spacing: -.055em;
     margin: .65rem 0 .75rem; max-width: 22ch; text-wrap: balance }
@@ -78,6 +78,11 @@
   .board-totals b { font: 500 clamp(1.75rem, 4vw, 2.6rem)/1.1 var(--serif); font-variant-numeric: tabular-nums }
   .board-arrow { justify-self: center; color: #b4c8e4; font-size: 1.4rem }
   .board-totals div:last-child { text-align: right }
+  .all-results { background: var(--panel); border: 1px solid var(--line); padding: 1rem 1.15rem }
+  .all-results h2 { color: var(--muted); font-size: .92rem; font-weight: 680 }
+  .all-results p { margin-top: .35rem; color: var(--muted); font-size: .88rem }
+  .all-results strong { color: var(--ink); font-size: 1.18rem }
+  .context-label { margin-bottom: .45rem; color: var(--muted); font-size: .83rem; font-weight: 650 }
   .context-line { display: grid; grid-template-columns: 1fr 1fr; border-block: 1px solid var(--line); }
   .context-item { display: flex; align-items: center; gap: clamp(.8rem, 2vw, 1.5rem); padding: 1.05rem 1.25rem }
   .context-item + .context-item { border-left: 1px solid var(--line) }
@@ -219,6 +224,16 @@
       <p class="lede" id="hero-lede"></p>
       <p class="asof" id="cutoff"></p>
     </div>
+    <div class="hero-board">
+      <div class="board-label" id="hero-paired-scope"></div>
+      <strong class="net" id="hero-delta"></strong>
+      <p class="board-note">задокументованих прихильників України</p>
+      <div class="board-totals">
+        <div><small>До виборів</small><b id="hero-before"></b></div>
+        <span class="board-arrow" aria-hidden="true">→</span>
+        <div><small>Після виборів</small><b id="hero-after"></b></div>
+      </div>
+    </div>
     <dl class="coverage-metrics" aria-label="Оголошені результати й покриття позицій">
       <div><dt>Місця з результатом</dt><dd><strong id="coverage-results"></strong><span id="coverage-results-pct"></span></dd></div>
       <div><dt>Відомі позиції попередників</dt><dd><strong id="coverage-before"></strong><span id="coverage-before-pct"></span></dd></div>
@@ -229,22 +244,17 @@
       <div class="coverage" aria-label="Покриття позицій">
         <p>До відомих позицій зараховуємо підтримку, протидію та неоднозначну позицію. Серед усіх кандидатів на місця з правом голосу позицію задокументовано для <strong id="coverage-candidates"></strong>.</p>
         <p id="coverage-missing"></p>
-        <p id="coverage-paired"></p>
       </div>
       <p class="asof" id="hero-comparable"></p>
     </div>
-    <div class="hero-board">
-      <div class="board-label">Підрахунок за задокументованими позиціями</div>
-      <strong class="net" id="hero-delta"></strong>
-      <p class="board-note">задокументованих прихильників України</p>
-      <div class="board-totals">
-        <div><small>До виборів</small><b id="hero-before"></b></div>
-        <span class="board-arrow" aria-hidden="true">→</span>
-        <div><small>Після виборів</small><b id="hero-after"></b></div>
-      </div>
-    </div>
+    <section class="all-results" aria-labelledby="all-results-title">
+      <h2 id="all-results-title"></h2>
+      <p><strong id="all-results-balance"></strong> задокументованих прихильників України</p>
+      <p id="all-results-gap"></p>
+    </section>
   </section>
-  <div class="context-line" aria-label="Складові зміни">
+  <p class="context-label" id="context-scope">Складові зміни на всіх місцях з оголошеним результатом</p>
+  <div class="context-line" aria-labelledby="context-scope">
     <div class="context-item"><strong class="context-value" id="net-confirmed"></strong>
       <p>чистий баланс підтверджених переходів між підтримкою та протидією</p></div>
     <div class="context-item"><strong class="context-value" id="net-uncertain"></strong>
@@ -848,6 +858,8 @@
   const candidateTotal = Object.values(candidatePositionCounts).reduce((a, b) => a + b, 0);
   const knownCandidates = candidateTotal - (candidatePositionCounts.no_data || 0);
   const paired = decidedRaces.filter(race => known(race.predecessor_status) && known(race.winner_status));
+  const pairedBefore = paired.filter(race => race.predecessor_status === 'support').length;
+  const pairedAfter = paired.filter(race => race.winner_status === 'support').length;
   const percent = (numerator, denominator) => denominator
     ? decimal.format(100 * numerator / denominator) + '%' : '—';
   for (const [id, numerator, denominator] of [
@@ -865,14 +877,17 @@
     ' (' + percent(knownCandidates, candidateTotal) + ')';
   $('coverage-missing').textContent = 'Серед переможців ' + unclearWinners +
     ' мають неоднозначну позицію. Щодо ' + (decided - knownWinners) + ' переможців даних немає.';
-  $('coverage-paired').textContent = 'На ' + paired.length + ' місцях із відомими позиціями обох ' +
-    'кількість задокументованих прихильників змінилася з ' +
-    paired.filter(race => race.predecessor_status === 'support').length +
-    ' до ' + paired.filter(race => race.winner_status === 'support').length + '. На решті ' +
-    (decided - paired.length) + ' місцях бракує даних про попередника або переможця.';
-  $('hero-delta').textContent = signed(sum('nominal', 'delta'));
-  $('hero-before').textContent = sum('nominal', 'before');
-  $('hero-after').textContent = sum('nominal', 'after');
+  $('hero-paired-scope').textContent = paired.length + ' місць, де відомі обидві позиції';
+  $('hero-delta').textContent = signed(pairedAfter - pairedBefore);
+  $('hero-before').textContent = pairedBefore;
+  $('hero-after').textContent = pairedAfter;
+  $('all-results-title').textContent = 'Усі ' + decided + ' місць з оголошеним результатом';
+  $('all-results-balance').textContent = sum('nominal', 'before') + ' → ' + sum('nominal', 'after') +
+    ' (' + signed(sum('nominal', 'delta')) + ')';
+  const missingPairs = decided - paired.length;
+  $('all-results-gap').textContent = missingPairs
+    ? 'На ' + missingPairs + ' із цих місць бракує даних про попередника або переможця.'
+    : '';
   $('hero-comparable').textContent = 'На ' + sum('verified_continuity', 'n') +
     ' місцях із підтвердженою наступністю зміна становить ' + signed(sum('verified_continuity', 'delta')) + '.';
   if (summary.some(row => row.scope === 'tracker_nominal')) {

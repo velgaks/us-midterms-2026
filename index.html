@@ -39,6 +39,13 @@
     h1 { margin: .35rem 0 .8rem; font: 500 clamp(2.1rem, 5.6vw, 4rem)/1.03 var(--serif); letter-spacing: -.045em; text-wrap: balance }
     .summary { max-width: 74ch; color: var(--muted); font-size: clamp(1rem, 1.8vw, 1.18rem) }
     .summary strong { color: var(--ink) }
+    .lead-result { margin-top: .95rem; padding: 1rem clamp(1rem, 3vw, 1.65rem);
+      background: var(--navy); color: var(--panel); border-top: 4px solid var(--gold) }
+    .lead-result p { color: #e6edf7 }
+    .lead-result strong { display: inline-block; margin-right: .38rem; color: var(--gold);
+      font: 500 clamp(2.25rem, 6vw, 3.65rem)/1 var(--serif); letter-spacing: -.04em }
+    .lead-result .scope { margin-top: .4rem; font-size: .92rem }
+    .all-results { padding: .8rem 1rem; background: var(--panel); border: 1px solid var(--line) }
     .coverage-metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .6rem; margin: .9rem 0 }
     .coverage-metrics div { min-width: 0; padding: .62rem .75rem; background: var(--panel);
       border: 1px solid var(--line); border-top: 3px solid var(--blue) }
@@ -79,13 +86,19 @@
       <p class="eyebrow">Проміжні вибори США 2026</p>
       <h1>Підтримка України в Конгресі</h1>
       <p class="asof">Голоси станом на <time datetime="2026-11-04T18:15:11+02:00">4 листопада 2026 року, 18:15:11 за Києвом</time>.</p>
+      <div class="lead-result">
+        <p><strong>+4</strong> задокументованих прихильники України</p>
+        <p class="scope"><b>228 → 232</b> на 370 місцях, де відомі позиції і попередника, і переможця.</p>
+      </div>
       <dl class="coverage-metrics" aria-label="Оголошені результати й покриття позицій">
         <div><dt>Місця з результатом</dt><dd><strong>393 / 470</strong><span>83,6%</span></dd></div>
         <div><dt>Відомі позиції попередників</dt><dd><strong>392 / 393</strong><span>99,7%</span></dd></div>
         <div><dt>Відомі позиції переможців</dt><dd><strong>371 / 393</strong><span>94,4%</span></dd></div>
         <div><dt>Відомі обидві позиції</dt><dd><strong>370 / 393</strong><span>94,1%</span></dd></div>
       </dl>
-      <p class="summary">На всіх 393 визначених місцях кількість задокументованих прихильників України змінилася <strong>з 235 до 233</strong>. На 370 місцях, де відомі обидві позиції, вона змінилася <strong>з 228 до 232</strong>.</p>
+      <div class="all-results">
+        <p class="summary">На всіх <strong>393 місцях з оголошеним результатом</strong> кількість задокументованих прихильників України змінилася <strong>з 235 до 233 (−2)</strong>.</p>
+      </div>
       <div class="coverage" aria-label="Покриття позицій">
         <p>До відомих позицій зараховуємо підтримку, протидію та неоднозначну позицію. Серед усіх кандидатів на місця з правом голосу позицію задокументовано для <strong>746 із 1 296 (57,6%)</strong>. Серед переможців 81 має неоднозначну позицію. Щодо 22 переможців даних немає.</p>
         <p>На решті 23 місцях з оголошеним результатом бракує даних про попередника або переможця.</p>
@@ -98,7 +111,7 @@
       <div class="gallery">
         <figure>
           <a href="share/01-pidsumok.png">
-            <img src="share/01-pidsumok.png" width="1080" height="1350" alt="На 393 місцях з оголошеним результатом кількість задокументованих прихильників України зменшилася з 235 до 233.">
+            <img src="share/01-pidsumok.png" width="1080" height="1350" alt="На 370 місцях із відомими позиціями обох кількість прихильників України зросла з 228 до 232. На всіх 393 місцях з оголошеним результатом вона змінилася з 235 до 233.">
           </a>
           <figcaption>Загальний підсумок</figcaption>
         </figure>
@@ -126,7 +139,7 @@
     <div class="notes">
       <section id="method" aria-labelledby="method-title">
         <h2 id="method-title">Методика</h2>
-        <p>Порівняно позиції попередників та оголошених переможців на тих самих місцях. Переходи між підтримкою та протидією дали −1 до балансу. Ще −1 дали переходи за участю невідомих або неоднозначних позицій.</p>
+        <p>Порівняно позиції попередників та оголошених переможців на тих самих місцях. Для всіх 393 місць переходи між підтримкою та протидією дали −1 до балансу. Ще −1 дали переходи за участю невідомих або неоднозначних позицій.</p>
         <p class="asof">Позиції взято з Back Both Now, Track Ukraine та перевірених додаткових джерел. Зріз позицій зафіксовано <time datetime="2026-11-04T12:59:38+02:00">4 листопада о 12:59:38 за Києвом</time>. У дашборді біля імен доступні оцінки й посилання на докази.</p>
       </section>
       <section id="sources" aria-labelledby="sources-title">
