@@ -227,7 +227,7 @@
     </dl>
     <div>
       <div class="coverage" aria-label="Покриття позицій">
-        <p>Відомою вважаємо чітку позицію щодо України — підтримку або протидію. Серед усіх кандидатів на місця з правом голосу таку позицію встановлено для <strong id="coverage-candidates"></strong>.</p>
+        <p>До відомих позицій зараховуємо підтримку, протидію та неоднозначну позицію. Серед усіх кандидатів на місця з правом голосу позицію задокументовано для <strong id="coverage-candidates"></strong>.</p>
         <p id="coverage-missing"></p>
         <p id="coverage-paired"></p>
       </div>
@@ -841,18 +841,18 @@
   const decided = sum('elections', 'decided');
   const decidedRaces = races.filter(race => chambers.includes(race.chamber) &&
     race.counts_for_next_congress === 'True' && race.winner_name);
-  const clear = status => status === 'support' || status === 'oppose';
-  const clearPredecessors = decidedRaces.filter(race => clear(race.predecessor_status)).length;
-  const clearWinners = decidedRaces.filter(race => clear(race.winner_status)).length;
+  const known = status => positions.includes(status) && status !== 'no_data';
+  const knownPredecessors = decidedRaces.filter(race => known(race.predecessor_status)).length;
+  const knownWinners = decidedRaces.filter(race => known(race.winner_status)).length;
   const unclearWinners = decidedRaces.filter(race => race.winner_status === 'unclear').length;
   const candidateTotal = Object.values(candidatePositionCounts).reduce((a, b) => a + b, 0);
-  const clearCandidates = (candidatePositionCounts.support || 0) + (candidatePositionCounts.oppose || 0);
-  const paired = decidedRaces.filter(race => clear(race.predecessor_status) && clear(race.winner_status));
+  const knownCandidates = candidateTotal - (candidatePositionCounts.no_data || 0);
+  const paired = decidedRaces.filter(race => known(race.predecessor_status) && known(race.winner_status));
   const percent = (numerator, denominator) => denominator
     ? decimal.format(100 * numerator / denominator) + '%' : '—';
   for (const [id, numerator, denominator] of [
-    ['results', decided, total], ['before', clearPredecessors, decided],
-    ['after', clearWinners, decided], ['both', paired.length, decided]
+    ['results', decided, total], ['before', knownPredecessors, decided],
+    ['after', knownWinners, decided], ['both', paired.length, decided]
   ]) {
     $('coverage-' + id).textContent = numerator + ' / ' + denominator;
     $('coverage-' + id + '-pct').textContent = percent(numerator, denominator);
@@ -861,14 +861,15 @@
   $('cutoff').textContent = 'Голоси станом на ' + cutoff + ' за Києвом';
   $('hero-lede').textContent = 'Палата представників і Сенат. Ще ' + (total - decided) +
     ' місць із правом голосу без оголошеного переможця.';
-  $('coverage-candidates').textContent = decimal.format(clearCandidates) + ' із ' + decimal.format(candidateTotal) +
-    ' (' + percent(clearCandidates, candidateTotal) + ')';
-  $('coverage-missing').textContent = 'Серед решти переможців ' + unclearWinners +
-    ' мають неоднозначну позицію, щодо ' + (decided - clearWinners - unclearWinners) + ' бракує даних.';
-  $('coverage-paired').textContent = 'На ' + paired.length + ' місцях із чіткими позиціями обох ' +
-    'кількість прихильників змінилася з ' +
+  $('coverage-candidates').textContent = decimal.format(knownCandidates) + ' із ' + decimal.format(candidateTotal) +
+    ' (' + percent(knownCandidates, candidateTotal) + ')';
+  $('coverage-missing').textContent = 'Серед переможців ' + unclearWinners +
+    ' мають неоднозначну позицію. Щодо ' + (decided - knownWinners) + ' переможців даних немає.';
+  $('coverage-paired').textContent = 'На ' + paired.length + ' місцях із відомими позиціями обох ' +
+    'кількість задокументованих прихильників змінилася з ' +
     paired.filter(race => race.predecessor_status === 'support').length +
-    ' до ' + paired.filter(race => race.winner_status === 'support').length + '.';
+    ' до ' + paired.filter(race => race.winner_status === 'support').length + '. На решті ' +
+    (decided - paired.length) + ' місцях бракує даних про попередника або переможця.';
   $('hero-delta').textContent = signed(sum('nominal', 'delta'));
   $('hero-before').textContent = sum('nominal', 'before');
   $('hero-after').textContent = sum('nominal', 'after');
